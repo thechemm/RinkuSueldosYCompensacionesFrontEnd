@@ -1,0 +1,49 @@
+<!-- <app-loading *ngIf="loading"></app-loading> -->
+<div *ngIf="!loading" class="w-100" [formGroup]="form">
+    <div class="aling-ends">
+        <label><mat-icon>edit</mat-icon>Alumno</label>
+        <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+          <mat-menu #menu="matMenu" xPosition="before">
+            <button [disabled]="id==0" (click)="onDelete(id)" mat-menu-item>Eliminar</button>
+          </mat-menu>
+    </div>
+<br/>
+<div class="container-fluid">
+  <div class="row">
+    <mat-form-field class="col-lg-4" appearance="outline">
+      <mat-label>Numero</mat-label>
+      <input formControlName="numero" type="text"  matInput placeholder="name" value="">
+      <mat-error> El numero es requerido</mat-error>
+  </mat-form-field>
+    <mat-form-field class="col-lg-4" appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input formControlName="nombre" type="text"  matInput placeholder="name" value="">
+        <mat-error> El nombre es requerido</mat-error>
+    </mat-form-field>
+
+     <mat-form-field class="col-lg-4" appearance="outline">
+      <mat-label>Rol</mat-label>
+      <mat-select formControlName="rolId" >
+      <!-- <mat-option *ngFor="let rol of roles" [value]="rol.id" >{{rol.nombre}}</mat-option> -->
+      <mat-option value="1">Chofer</mat-option>
+      </mat-select>
+      <mat-error> Elija un rol </mat-error>
+    </mat-form-field>
+    <br/>
+  </div>
+</div>
+<div class="w-100 text-aling-end display-flex ml-10">
+    <button (click)="onSave(id)" mat-stroked-button color="primary" class="w-15 mr-10">
+        {{txtAction}}
+    </button>
+    <div class="w-1">&nbsp;</div>
+    <button mat-stroked-button color="warn" [mat-dialog-close] class="w-15 mr-10">
+       Salir
+    </button>
+
+</div>
+
+</div>
+
