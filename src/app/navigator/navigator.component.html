@@ -5,9 +5,10 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Movimientos</a>
-      <a mat-list-item [routerLink]="['/empleados']" routerLinkActive="router-link-active" >Empleados</a>
-      <a mat-list-item href="#">Roles</a>
+      <a mat-list-item routerLink="movimientos">Movimientos</a>
+      <a mat-list-item routerLink="empleados">Empleados</a>
+      <a mat-list-item routerLink="sueldos">Sueldos</a>
+      <!-- <a mat-list-item routerLink="roles">Roles</a> -->
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

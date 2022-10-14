@@ -1,0 +1,100 @@
+@use 'sass:map';
+@use '~@angular/material' as mat; 
+
+$item100 : 100;
+$item : 20;
+
+.center{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+}
+.display-flex{
+  display: flex;
+}
+
+.display-none{
+  display: none;
+}
+
+.display-block{
+  display: block;
+}
+
+.display-content{
+  display: contents;
+}
+
+.text-aling-end{
+  text-align: end;
+}
+.text-aling-center{
+  text-align: center;
+}
+.text-align-right {
+  text-align: right;
+}
+
+.aling-ends{
+  display: flex;
+  justify-content: space-between;
+}
+
+.justify-content-center{
+  justify-content: center;
+}
+
+.aling-items-center{
+  align-items: center;
+}
+
+/*. A L I N G S */
+.aling-baseinline{
+  align-items: baseline;
+}
+/*. W I D T H   */
+$porcent-w: 1%;
+@for $i from 1 through $item100{
+  .w-#{$i}{
+    width: $porcent-w;
+  }
+  $porcent-w: $porcent-w + 1;
+}
+
+
+/*.  M A R G I N */
+@for $i from 1 through $item{
+  $p : #{$i}em;
+  
+  .m-#{$i}{
+    margin: calc(#{$p}/10)}
+  .mt-#{$i}{
+    margin-top : calc(#{$p}/10)}
+  .ml-#{$i}{
+    margin-left : calc(#{$p}/10)}
+  .mb-#{$i}{
+    margin-bottom : calc(#{$p}/10)}
+  .mr-#{$i}{
+    margin-right : calc(#{$p}/10)}
+}
+/*. P A D I N G */
+@for $i from 1 through $item{
+  $p : #{$i}em;
+  
+  .p-#{$i}{
+    padding: calc(#{$p}/10)}
+  .pt-#{$i}{
+    padding-top: calc(#{$p}/10)}
+  .pl-#{$i}{
+    padding-left: calc(#{$p}/10)}
+  .pb-#{$i}{
+    padding-bottom: calc(#{$p}/10)}
+  .pr-#{$i}{
+    padding-right: calc(#{$p}/10)}
+}
+
+
+
+
