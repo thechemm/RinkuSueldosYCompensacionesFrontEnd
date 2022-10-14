@@ -1,0 +1,64 @@
+<app-loading *ngIf="loading"></app-loading>
+<div *ngIf="!loading" class="w-100" [formGroup]="form">
+    <div class="aling-ends">
+        <label><mat-icon>edit</mat-icon>{{txtAction}} Movimiento</label>
+        <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+          <mat-menu #menu="matMenu" xPosition="before">
+            <button [disabled]="id==0" (click)="onDelete(id)" mat-menu-item>Eliminar</button>
+          </mat-menu>
+    </div>
+<br/>
+<div class="container-fluid">
+  <div class="row">
+    <div class="row">
+       <mat-form-field class="col-lg-7" appearance="outline">
+        <mat-label>Empleado</mat-label>
+        <mat-select (valueChange)="onSelectEmpleado($event)" formControlName="idEmpleado" >
+        <mat-option *ngFor="let empleado of empleados" [value]="empleado.id">{{empleado.numero}}-{{empleado.nombre}}</mat-option>
+        </mat-select>
+        <mat-error>Por favor elija un empleado </mat-error>
+    </mat-form-field>
+    <mat-chip-list class="col-lg-3 pt-10" aria-label="Fish selection">
+        <mat-chip *ngIf="rolEmpleado!=null" color="primary" selected>{{rolEmpleado.nombre}}</mat-chip>
+      </mat-chip-list> 
+    </div>
+    
+
+    <mat-form-field class="col-lg-5" appearance="outline">
+        <mat-label>Cantidad de entregas</mat-label>
+        <input formControlName="numEntregas" type="number" matInput placeholder="##">
+        <mat-error> Este campo es requerido</mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-lg-4" appearance="outline">
+        <mat-label>Mes</mat-label>
+        <mat-select formControlName="idMes" >
+        <mat-option *ngFor="let mes of meses" [value]="mes.id">{{mes.nombre}}</mat-option>
+        </mat-select>
+        <mat-error>Por favor elija un Mes </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-lg-3" appearance="outline">
+        <mat-label>Año</mat-label>
+        <input formControlName="anio" type="number" maxlength="4" matInput placeholder="0000">
+        <mat-error> El nombre es requerido</mat-error>
+    </mat-form-field>
+    
+    
+
+    <br/>
+  </div>
+</div>
+<div class="w-100 text-aling-end display-flex ">
+    <button (click)="onSave(id)" mat-stroked-button color="primary" class="w-15 mr-10">
+        {{txtAction}}
+    </button>
+    <div class="w-1">&nbsp;</div>
+    <button mat-stroked-button color="warn" [mat-dialog-close] class="w-15 mr-10">
+       Salir
+    </button>
+
+</div>
+
+</div>

@@ -1,0 +1,14 @@
+.title-invoice {
+    font-weight: 500;
+    color: grey;
+    font-size: 1.2em;
+    padding-top: .5em;
+    border-top: 1px solid;
+    border-color: #d0cfcf;
+}
+.back-color1{
+    background-color:rgb(192 210 192)!important;
+}
+.form{
+    display: inline-grid;
+}
