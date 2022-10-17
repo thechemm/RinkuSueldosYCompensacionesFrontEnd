@@ -69,7 +69,6 @@ export class EmpleadoSavelComponent implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
-    console.log(this.form.value);
     if(id == 0){
       this._empleadoService.Create(this.form.value).subscribe({
         next:(v)=>{

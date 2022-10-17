@@ -1,9 +1,11 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { EmpleadoService } from 'src/app/empleado/services/empleado.service';
+import { ICatMes } from 'src/app/cat-mes/interfaces/cat-mes';
+import { CatMesService } from 'src/app/cat-mes/services/cat-mes.service';
 import { ISueldoFiltro } from '../interfaces/sueldo-filtro';
 import { ISueldoMensual } from '../interfaces/sueldo-mensual';
 import { SueldoMensualService } from '../services/sueldo-mensual.service';
@@ -20,19 +22,24 @@ export class SueldoMensualListComponent implements OnInit ,AfterViewInit {
 
   dataSource= new MatTableDataSource<ISueldoMensual>();
   displayedColumns = ['nombreEmpleado','totalEntregas','sueldoBase','bonoPorHora','bonoPorEntrega','totalRetencion','totalSueldo','montoVales'];
-
+  form!: FormGroup;
   textFiltro: String = '';
-  loading: boolean = true;
+  loading: boolean = false;
   sending:boolean = false;
+  meses: ICatMes[] = [];
   filtroSueldos:ISueldoFiltro = {
     anio:new Date().getFullYear(),
-    idMes: new Date().getMonth()
+    idMes: 1
   }
 
   constructor(
     private _sueldoService: SueldoMensualService,
     private _snakBar: MatSnackBar,
-  ) { }
+    private _mesService: CatMesService,
+    private _formBuil: FormBuilder,
+  ) {
+    this.form=this.FormBuilder();
+  }
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
@@ -41,10 +48,15 @@ export class SueldoMensualListComponent implements OnInit ,AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.getRecords();
+    this.GetMeses();
   }
 
   getRecords(){
+    if(!this.form.valid){
+      this.form.markAllAsTouched();
+      return;
+    }
+    this.loading = true;
     this._sueldoService.GetSueldos(this.filtroSueldos).subscribe({
       next:(response)=>{
         this.dataSource.data = response;
@@ -57,17 +69,26 @@ export class SueldoMensualListComponent implements OnInit ,AfterViewInit {
         this.loading = false;
       }
     }
-      
-      
     );
   }
 
-  
+  GetMeses(){
+    this._mesService.ReadAll().subscribe({
+      next:(v)=>this.meses = v,
+      error:(e)=>this._snakBar.open(e.error.text,'OK',{duration:5000})
+    });
+  }
+
 
   aplicarFiltro(){
     this.dataSource.filter = this.textFiltro.trim().toString();
   }
 
- 
+  FormBuilder(){
+    return this._formBuil.group({
+      idMes: [null,Validators.required],
+      anio: [new Date().getFullYear(),Validators.required]
+    });
+  }
 
 }

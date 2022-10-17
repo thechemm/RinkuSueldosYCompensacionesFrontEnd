@@ -111,9 +111,9 @@ export class MovimientoSavelComponent implements OnInit {
 
 
   onDelete(id:number){
-    this._empleadoService.Delete(id).subscribe(
+    this._movimientosService.Delete(id).subscribe(
       ()=>{
-        this._snakBar.open('Usario eliminado correctamente','OK',{duration:2000});
+        this._snakBar.open('movimiento eliminado correctamente','OK',{duration:2000});
         this.dialogRef.close();
       }
     );
